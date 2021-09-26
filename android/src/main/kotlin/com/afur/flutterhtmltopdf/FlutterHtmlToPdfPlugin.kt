@@ -5,8 +5,11 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
+import io.flutter.embedding.engine.plugins.FlutterPlugin
+import androidx.annotation.NonNull
 
-class FlutterHtmlToPdfPlugin(private val registrar: Registrar) : MethodCallHandler {
+
+class FlutterHtmlToPdfPlugin(private val registrar: Registrar) : MethodCallHandler, FlutterPlugin {
 
     @Override
     fun onAttachedToEngine(binding: FlutterPluginBinding) {
