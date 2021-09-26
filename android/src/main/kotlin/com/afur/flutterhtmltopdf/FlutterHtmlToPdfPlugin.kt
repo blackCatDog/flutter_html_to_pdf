@@ -8,13 +8,31 @@ import io.flutter.plugin.common.PluginRegistry.Registrar
 
 class FlutterHtmlToPdfPlugin(private val registrar: Registrar) : MethodCallHandler {
 
-    companion object {
-        @JvmStatic
-        fun registerWith(registrar: Registrar) {
-            val channel = MethodChannel(registrar.messenger(), "flutter_html_to_pdf")
-            channel.setMethodCallHandler(FlutterHtmlToPdfPlugin(registrar))
-        }
+    @Override
+    fun onAttachedToEngine(binding: FlutterPluginBinding) {
+        onAttachedToEngine(binding.getApplicationContext(), binding.getBinaryMessenger())
     }
+
+    private fun onAttachedToEngine(applicationContext: Context, messenger: BinaryMessenger) {
+        context = applicationContext
+        methodChannel = MethodChannel(messenger, "flutter_html_to_pdf")
+        methodChannel.setMethodCallHandler(this)
+    }
+
+    @Override
+    fun onDetachedFromEngine(binding: FlutterPluginBinding?) {
+        context = null
+        methodChannel.setMethodCallHandler(null)
+        methodChannel = null
+    }
+
+//    companion object {
+//        @JvmStatic
+//        fun registerWith(registrar: Registrar) {
+//            val channel = MethodChannel(registrar.messenger(), "flutter_html_to_pdf")
+//            channel.setMethodCallHandler(FlutterHtmlToPdfPlugin(registrar))
+//        }
+//    }
 
     override fun onMethodCall(call: MethodCall, result: Result) {
         if (call.method == "convertHtmlToPdf") {
