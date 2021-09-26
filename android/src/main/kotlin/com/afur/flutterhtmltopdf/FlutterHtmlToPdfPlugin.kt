@@ -29,9 +29,10 @@ class FlutterHtmlToPdfPlugin(private val registrar: Registrar) : MethodCallHandl
     companion object {
         @JvmStatic
         fun registerWith(registrar: Registrar) {
-//            val channel = MethodChannel(registrar.messenger(), "flutter_html_to_pdf")
-//            channel.setMethodCallHandler(FlutterHtmlToPdfPlugin(registrar))
+            val instance: com.example.fluttershare.FlutterSharePlugin = com.example.fluttershare.FlutterSharePlugin()
             instance.onAttachedToEngine(registrar.context(), registrar.messenger())
+//            val channel = MethodChannel(registrar.messenger(), "flutter_share")
+//            channel.setMethodCallHandler(FlutterSharePlugin(registrar))
         }
     }
 
